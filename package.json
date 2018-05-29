@@ -1,0 +1,32 @@
+{
+  "name": "vue-nuxt-demo",
+  "version": "1.0.0",
+  "description": "Nuxt.js project",
+  "author": "Superman <supermanchc@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "nuxt": "^1.0.0",
+    "vue2-highcharts": "^1.1.9"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "eslint": "^4.15.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-vue": "^4.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
