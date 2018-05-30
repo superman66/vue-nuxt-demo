@@ -89,10 +89,9 @@ export default {
   components: {
     AppLogo,
   },
-   asyncData() {
+   data() {
     return {
       options: data,
-      highcharts: Highcharts
     }
   }
 }
