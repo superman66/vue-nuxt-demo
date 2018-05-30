@@ -6,7 +6,7 @@
         vue-nuxt-demo
       </h1>
       <h2 class="subtitle">
-        Nuxt.js project
+        for <a href="https://github.com/superman66/vue-highcharts" target="_blank">vue2-highcharts</a>
       </h2>
       <vue-highcharts :options="options" ref="lineCharts"></vue-highcharts>
     </div>
@@ -94,10 +94,6 @@ export default {
       options: data,
       highcharts: Highcharts
     }
-  },
-  created(){
-    console.log('created');
-
   }
 }
 </script>
