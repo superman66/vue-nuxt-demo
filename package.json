@@ -13,8 +13,9 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "highcharts": "^6.1.0",
     "nuxt": "^1.0.0",
-    "vue2-highcharts": "^1.1.9"
+    "vue2-highcharts": "^1.2.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
