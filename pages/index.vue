@@ -8,92 +8,118 @@
       <h2 class="subtitle">
         for <a href="https://github.com/superman66/vue-highcharts" target="_blank">vue2-highcharts</a>
       </h2>
-      <vue-highcharts :options="options" ref="lineCharts"></vue-highcharts>
+      <no-ssr>
+      <vue-highcharts :options="options" :highcharts="highcharts" ref="lineCharts"></vue-highcharts>
+      </no-ssr>
     </div>
   </section>
 </template>
 
 <script>
 import Highcharts from 'highcharts'
+import Drilldown from 'highcharts/modules/drilldown.js'
 import AppLogo from '~/components/AppLogo.vue'
 
-const data = {
+const DrilldownData = {
   chart: {
-    type: 'bar',
+    type: 'column',
   },
   title: {
-    text: 'Historic World Population by Region',
-  },
-  subtitle: {
-    text:
-      'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>',
+    text: 'Basic drilldown',
   },
   xAxis: {
-    categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-    title: {
-      text: null,
-    },
+    type: 'category',
   },
-  yAxis: {
-    min: 0,
-    title: {
-      text: 'Population (millions)',
-      align: 'high',
-    },
-    labels: {
-      overflow: 'justify',
-    },
-  },
-  tooltip: {
-    valueSuffix: ' millions',
+  legend: {
+    enabled: false,
   },
   plotOptions: {
-    bar: {
+    series: {
+      borderWidth: 0,
       dataLabels: {
         enabled: true,
       },
     },
   },
-  legend: {
-    layout: 'vertical',
-    align: 'right',
-    verticalAlign: 'top',
-    x: -40,
-    y: 80,
-    floating: true,
-    borderWidth: 1,
-    backgroundColor:
-      (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-    shadow: true,
-  },
-  credits: {
-    enabled: false,
-  },
   series: [
     {
-      name: 'Year 1800',
-      data: [107, 31, 635, 203, 2],
-    },
-    {
-      name: 'Year 1900',
-      data: [133, 156, 947, 408, 6],
-    },
-    {
-      name: 'Year 2012',
-      data: [1052, 954, 4250, 740, 38],
+      name: 'Things',
+      colorByPoint: true,
+      data: [
+        {
+          name: 'Animals',
+          y: 5,
+          drilldown: 'animals',
+        },
+        {
+          name: 'Fruits',
+          y: 2,
+          drilldown: 'fruits',
+        },
+        {
+          name: 'Cars',
+          y: 4,
+          drilldown: 'cars',
+        },
+      ],
     },
   ],
+  drilldown: {
+    series: [
+      {
+        id: 'animals',
+        data: [
+          ['Cats', 4],
+          ['Dogs', 2],
+          ['Cows', 1],
+          ['Sheep', 2],
+          ['Pigs', 1],
+        ],
+      },
+      {
+        id: 'fruits',
+        data: [
+          {
+            name: 'Apples',
+            y: 4,
+          },
+          {
+            name: 'Oranges',
+            y: 2,
+            drilldown: 'third-leves',
+          },
+        ],
+      },
+      {
+        id: 'cars',
+        data: [['Toyota', 4], ['Opel', 2], ['Volkswagen', 2]],
+      },
+      {
+        id: 'third-leves',
+        data: [['Toyota', 4], ['Opel', 2], ['Volkswagen', 2]],
+      },
+    ],
+  },
 }
 
 export default {
   components: {
     AppLogo,
   },
-   data() {
+  data() {
     return {
-      options: data,
+      options: DrilldownData,
+      highcharts: Highcharts,
     }
-  }
+  },
+  mounted() {
+    Drilldown(Highcharts)
+    Highcharts.setOptions({
+      lang: {
+        drillUpText: 'back',
+      },
+    })
+  },
 }
 </script>
 
