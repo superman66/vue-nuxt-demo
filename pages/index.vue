@@ -11,96 +11,20 @@
       <no-ssr>
       <vue-highcharts :options="options" :highcharts="highcharts" ref="lineCharts"></vue-highcharts>
       </no-ssr>
+
+      <no-ssr>
+      <vue-highcharts :options="mapOptions" :highcharts="highcharts" ref="mapCharts"></vue-highcharts>
+      </no-ssr>
     </div>
   </section>
 </template>
 
 <script>
-import Highcharts from 'highcharts'
+import Highcharts from 'highcharts/highmaps'
 import Drilldown from 'highcharts/modules/drilldown.js'
 import AppLogo from '~/components/AppLogo.vue'
+import { DrilldownOptions, MapData} from '~/static/data.js'
 
-const DrilldownData = {
-  chart: {
-    type: 'column',
-  },
-  title: {
-    text: 'Basic drilldown',
-  },
-  xAxis: {
-    type: 'category',
-  },
-  legend: {
-    enabled: false,
-  },
-  plotOptions: {
-    series: {
-      borderWidth: 0,
-      dataLabels: {
-        enabled: true,
-      },
-    },
-  },
-  series: [
-    {
-      name: 'Things',
-      colorByPoint: true,
-      data: [
-        {
-          name: 'Animals',
-          y: 5,
-          drilldown: 'animals',
-        },
-        {
-          name: 'Fruits',
-          y: 2,
-          drilldown: 'fruits',
-        },
-        {
-          name: 'Cars',
-          y: 4,
-          drilldown: 'cars',
-        },
-      ],
-    },
-  ],
-  drilldown: {
-    series: [
-      {
-        id: 'animals',
-        data: [
-          ['Cats', 4],
-          ['Dogs', 2],
-          ['Cows', 1],
-          ['Sheep', 2],
-          ['Pigs', 1],
-        ],
-      },
-      {
-        id: 'fruits',
-        data: [
-          {
-            name: 'Apples',
-            y: 4,
-          },
-          {
-            name: 'Oranges',
-            y: 2,
-            drilldown: 'third-leves',
-          },
-        ],
-      },
-      {
-        id: 'cars',
-        data: [['Toyota', 4], ['Opel', 2], ['Volkswagen', 2]],
-      },
-      {
-        id: 'third-leves',
-        data: [['Toyota', 4], ['Opel', 2], ['Volkswagen', 2]],
-      },
-    ],
-  },
-}
 
 export default {
   components: {
@@ -108,7 +32,39 @@ export default {
   },
   data() {
     return {
-      options: DrilldownData,
+      options: DrilldownOptions,
+      mapOptions: {
+        title: {
+          text: 'Habitat of the Rusty Blackbird',
+        },
+
+        subtitle: {
+          text:
+            'An example of a distribution map in Highcharts.<br/>' +
+            'Source: <a href="http://en.wikipedia.org/wiki/File:Euphagus_carolinus_map.svg">Wikipedia</a>.',
+        },
+
+        plotOptions: {
+          series: {
+            tooltip: {
+              headerFormat: '',
+              pointFormat: '{series.name} area',
+            },
+          },
+        },
+
+        legend: {
+          align: 'left',
+          backgroundColor:
+            (Highcharts.theme && Highcharts.theme.legendBackgroundColor) ||
+            'rgba(255, 255, 255, 0.85)',
+          floating: true,
+          layout: 'vertical',
+          verticalAlign: 'bottom',
+          reversed: true,
+        },
+        series: MapData,
+      },
       highcharts: Highcharts,
     }
   },
